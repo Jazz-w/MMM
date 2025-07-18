@@ -1,0 +1,91 @@
+.manage-roles-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: #111827;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.manage-roles-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.user-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.user-item:last-child {
+  border-bottom: none;
+}
+
+.user-info {
+  font-size: 1rem;
+  color: #374151;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.user-email {
+  color: #6b7280;
+  font-style: italic;
+  margin-left: 0.25rem;
+}
+
+.role-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.role-button {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  min-width: 100px;
+}
+
+.role-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.student-button {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.student-button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.tutor-button {
+  background-color: #10b981;
+  color: white;
+}
+
+.tutor-button:hover:not(:disabled) {
+  background-color: #059669;
+}

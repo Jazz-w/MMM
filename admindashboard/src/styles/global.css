@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 250 250 255;
+    --foreground: 147 51% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 147 51% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 147 51% 20%;
+    --primary: 147 67% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 147 25% 96%;
+    --secondary-foreground: 147 51% 20%;
+    --muted: 147 15% 95%;
+    --muted-foreground: 147 25% 50%;
+    --accent: 122 45% 92%;
+    --accent-foreground: 147 51% 25%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 147 20% 88%;
+    --input: 147 15% 93%;
+    --ring: 147 67% 45%;
+    --radius: 0.75rem;
+    --chart-1: 147 67% 45%;
+    --chart-2: 122 67% 55%;
+    --chart-3: 94 67% 65%;
+    --chart-4: 78 67% 58%;
+    --chart-5: 60 67% 62%;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom Styles */
+.btn-gradient {
+  @apply bg-gradient-to-r from-primary to-primary/80 text-white hover:from-primary/90 hover:to-primary/70;
+}
+
+/* Table Styles */
+.table-container {
+  @apply relative overflow-x-auto shadow-md sm:rounded-lg;
+}
+
+.table-header {
+  @apply text-xs uppercase bg-muted/50;
+}
+
+.table-row {
+  @apply border-b hover:bg-muted/50;
+}
+
+.table-cell {
+  @apply px-6 py-4;
+}
+
+/* Card Styles */
+.dashboard-card {
+  @apply hover:shadow-lg transition-shadow duration-200;
+}
+
+.card-header {
+  @apply flex flex-row items-center justify-between pb-2;
+}
+
+.card-title {
+  @apply text-sm font-medium text-muted-foreground;
+}
+
+.card-value {
+  @apply text-2xl font-bold;
+}
+
+.card-description {
+  @apply text-xs text-muted-foreground mt-1;
+}
+
+/* Status Badge */
+.status-badge {
+  @apply px-2 py-1 rounded-full text-xs;
+}
+
+/* Form Styles */
+.form-group {
+  @apply space-y-2;
+}
+
+.form-label {
+  @apply text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+}
+
+.form-input {
+  @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.form-textarea {
+  @apply min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+/* Loading Spinner */
+.spinner {
+  @apply h-6 w-6 animate-spin rounded-full border-4 border-primary/20 border-t-primary;
+}
+
+/* Dialog Styles */
+.dialog-content {
+  @apply sm:max-w-[425px];
+}
+
+.dialog-header {
+  @apply space-y-2 text-center sm:text-left;
+}
+
+.dialog-footer {
+  @apply flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2;
+}
+
+/* Navigation */
+.nav-link {
+  @apply flex items-center transition-colors hover:text-foreground/80;
+}
+
+.nav-link-active {
+  @apply text-primary;
+}
+
+/* Search Input */
+.search-input {
+  @apply max-w-sm;
+}
+
+/* Grid Layout */
+.grid-layout {
+  @apply grid gap-4 md:grid-cols-2 lg:grid-cols-4;
+}
+
+/* Image */
+.product-image {
+  @apply w-10 h-10 rounded object-cover;
+}
+
+/* Button Variants */
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+}
+
+.btn-outline {
+  @apply border border-input hover:bg-accent hover:text-accent-foreground;
+}
+
+.btn-destructive {
+  @apply bg-destructive text-destructive-foreground hover:bg-destructive/90;
+}
+
+/* Animations */
+.animate-fade-in {
+  animation: fade-in 0.3s ease-in-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+.container-layout {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.mobile-menu {
+  @apply md:hidden;
+}
+
+.desktop-menu {
+  @apply hidden md:flex;
+}
+
+/* Custom utilities */
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}

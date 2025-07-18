@@ -1,0 +1,102 @@
+/* Container fills viewport and centers form */
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9fafb; /* light gray */
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  /* Form card */
+  .login-form {
+    background-color: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: 0.5rem; /* 8px */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* 20px */
+  }
+  
+  /* Title */
+  .login-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827; /* dark gray */
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Labels */
+  .login-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151; /* medium gray */
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+  
+  /* Inputs */
+  .login-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #d1d5db; /* light gray */
+    border-radius: 0.375rem; /* 6px */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+  }
+  
+  .login-input:focus {
+    outline: none;
+    border-color: #3b82f6; /* blue-500 */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+  
+  /* Button */
+  .login-button {
+    background-color: #3b82f6; /* blue-500 */
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  
+  .login-button:hover {
+    background-color: #2563eb; /* blue-600 */
+  }
+  
+  .login-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+  }
+  
+  /* Footer text */
+  .login-footer {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b7280; /* gray-500 */
+    margin-top: 1rem;
+  }
+  
+  /* Footer link */
+  .login-link {
+    color: #3b82f6; /* blue-500 */
+    text-decoration: none;
+  }
+  
+  .login-link:hover,
+  .login-link:focus {
+    text-decoration: underline;
+  }

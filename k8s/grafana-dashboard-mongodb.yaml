@@ -1,0 +1,191 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-mongodb
+  namespace: default
+data:
+  mongodb.json: |-
+    {
+      "id": null,
+      "title": "MongoDB Monitoring",
+      "tags": ["mongodb", "database"],
+      "style": "dark",
+      "timezone": "browser",
+      "panels": [
+          {
+            "id": 1,
+            "title": "MongoDB Connection Status",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "max(mongodb_up)",
+                "legendFormat": "MongoDB Status"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "mappings": [
+                  {"options": {"0": {"text": "Down", "color": "red"}}},
+                  {"options": {"1": {"text": "Up", "color": "green"}}}
+                ]
+              }
+            },
+            "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0}
+          },
+          {
+            "id": 2,
+            "title": "Current Connections",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "sum(mongodb_sys_netstat_Tcp_CurrEstab)",
+                "legendFormat": "Total TCP Connections"
+              }
+            ],
+            "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0}
+          },
+          {
+            "id": 3,
+            "title": "Operations per Second",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "sum(rate(mongodb_top_total_count[5m]))",
+                "legendFormat": "Ops/sec"
+              }
+            ],
+            "gridPos": {"h": 4, "w": 6, "x": 12, "y": 0}
+          },
+          {
+            "id": 4,
+            "title": "Memory Usage",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "sum(process_resident_memory_bytes)",
+                "legendFormat": "Total Resident Memory"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "unit": "bytes"
+              }
+            },
+            "gridPos": {"h": 4, "w": 6, "x": 18, "y": 0}
+          },
+          {
+            "id": 5,
+            "title": "Operations Over Time",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "rate(mongodb_top_commands_count[5m])",
+                "legendFormat": "Commands - {{collection}}"
+              },
+              {
+                "expr": "rate(mongodb_top_queries_count[5m])",
+                "legendFormat": "Queries - {{collection}}"
+              }
+            ],
+            "yAxes": [
+              {
+                "min": 0,
+                "unit": "ops"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4}
+          },
+          {
+            "id": 6,
+            "title": "TCP Connections Over Time",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "sum(mongodb_sys_netstat_Tcp_CurrEstab)",
+                "legendFormat": "Current Established"
+              },
+              {
+                "expr": "sum(mongodb_sys_sockstat_TCP_inuse)",
+                "legendFormat": "TCP In Use"
+              }
+            ],
+            "yAxes": [
+              {
+                "min": 0
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4}
+          },
+          {
+            "id": 7,
+            "title": "Collection Operations",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "mongodb_top_total_count",
+                "legendFormat": "{{database}}.{{collection}}"
+              }
+            ],
+            "yAxes": [
+              {
+                "min": 0
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12}
+          },
+          {
+            "id": 8,
+            "title": "Collection Operation Time",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "mongodb_top_total_time",
+                "legendFormat": "{{database}}.{{collection}}"
+              }
+            ],
+            "yAxes": [
+              {
+                "min": 0,
+                "unit": "µs"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12}
+          },
+          {
+            "id": 9,
+            "title": "Query Performance",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "rate(mongodb_top_queries_count[5m])",
+                "legendFormat": "Queries/sec - {{collection}}"
+              }
+            ],
+            "gridPos": {"h": 6, "w": 12, "x": 0, "y": 20}
+          },
+          {
+            "id": 10,
+            "title": "Process Memory Stats",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "sum(process_resident_memory_bytes)",
+                "legendFormat": "Total Resident Memory"
+              },
+              {
+                "expr": "sum(process_virtual_memory_bytes)",
+                "legendFormat": "Total Virtual Memory"
+              }
+            ],
+            "yAxes": [
+              {
+                "min": 0,
+                "unit": "bytes"
+              }
+            ],
+            "gridPos": {"h": 6, "w": 12, "x": 12, "y": 20}
+          }
+        ],
+        "time": {"from": "now-1h", "to": "now"},
+        "refresh": "30s"
+    } 

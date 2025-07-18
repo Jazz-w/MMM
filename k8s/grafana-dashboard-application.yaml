@@ -1,0 +1,271 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-app-overview
+  namespace: default
+data:
+  app-overview.json: |-
+    {
+      "id": null,
+      "title": "Application Overview",
+      "tags": ["application", "ecommerce"],
+      "style": "dark",
+      "timezone": "browser",
+      "panels": [
+          {
+            "id": 1,
+            "title": "HTTP Requests per Second",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/\"}[5m])) or vector(0)",
+                "legendFormat": "Home (/)"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/categories\"}[5m])) or vector(0)",
+                "legendFormat": "Categories"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/:id\"}[5m])) or vector(0)",
+                "legendFormat": "Product Details"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/cart\"}[5m])) or vector(0)",
+                "legendFormat": "Cart"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/cart/:itemId\"}[5m])) or vector(0)",
+                "legendFormat": "Cart Items"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/login\"}[5m])) or vector(0)",
+                "legendFormat": "Login"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/register\"}[5m])) or vector(0)",
+                "legendFormat": "Register"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "unit": "reqps",
+                "color": {"mode": "palette-classic"},
+                "noValue": "0"
+              }
+            },
+            "gridPos": {"h": 8, "w": 24, "x": 0, "y": 0}
+          },
+
+          {
+            "id": 2,
+            "title": "Request Volume Over Time",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/\"}[5m]))",
+                "legendFormat": "Home (/)"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/categories\"}[5m]))",
+                "legendFormat": "Categories"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/:id\"}[5m]))",
+                "legendFormat": "Product Details"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/cart\"}[5m]))",
+                "legendFormat": "Cart"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/cart/:itemId\"}[5m]))",
+                "legendFormat": "Cart Items"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/login\"}[5m]))",
+                "legendFormat": "Login"
+              },
+              {
+                "expr": "sum(rate(http_requests_total{route=\"/register\"}[5m]))",
+                "legendFormat": "Register"
+              }
+            ],
+            "yAxes": [
+              {
+                "min": 0,
+                "unit": "reqps"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}
+          },
+          {
+            "id": 3,
+            "title": "Response Time (95th percentile)",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+                "legendFormat": "95th percentile"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "unit": "s",
+                "color": {"mode": "thresholds"},
+                "thresholds": {
+                  "steps": [
+                    {"color": "green", "value": 0},
+                    {"color": "yellow", "value": 0.5},
+                    {"color": "red", "value": 2}
+                  ]
+                }
+              }
+            },
+            "gridPos": {"h": 4, "w": 8, "x": 0, "y": 16}
+          },
+          {
+            "id": 4,
+            "title": "Active Connections",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "sum(active_connections)",
+                "legendFormat": "Active Connections"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "color": {"mode": "palette-classic"},
+                "unit": "short"
+              }
+            },
+            "gridPos": {"h": 4, "w": 8, "x": 8, "y": 16}
+          },
+          {
+            "id": 5,
+            "title": "Error Rate",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "100 * sum(rate(http_requests_total{status_code=~\"4..|5..\"}[5m])) / sum(rate(http_requests_total[5m]))",
+                "legendFormat": "Error Rate %"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "unit": "percent",
+                "color": {"mode": "thresholds"},
+                "thresholds": {
+                  "steps": [
+                    {"color": "green", "value": 0},
+                    {"color": "yellow", "value": 5},
+                    {"color": "red", "value": 10}
+                  ]
+                }
+              }
+            },
+            "gridPos": {"h": 4, "w": 8, "x": 16, "y": 16}
+          },
+          {
+            "id": 6,
+            "title": "MongoDB Connection",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "max(mongodb_connection_status)",
+                "legendFormat": "Database Status"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "mappings": [
+                  {"options": {"0": {"text": "Disconnected", "color": "red"}}},
+                  {"options": {"1": {"text": "Connected", "color": "green"}}}
+                ],
+                "unit": "short"
+              }
+            },
+            "gridPos": {"h": 4, "w": 12, "x": 0, "y": 20}
+          },
+          {
+            "id": 7,
+            "title": "Total Users",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "max(mongodb_users_total)",
+                "legendFormat": "Total Users"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "color": {"mode": "palette-classic"},
+                "unit": "short"
+              }
+            },
+            "gridPos": {"h": 4, "w": 12, "x": 12, "y": 20}
+          },
+          {
+            "id": 10,
+            "title": "Response Time Distribution",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+                "legendFormat": "50th percentile"
+              },
+              {
+                "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+                "legendFormat": "95th percentile"
+              },
+              {
+                "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+                "legendFormat": "99th percentile"
+              }
+            ],
+            "yAxes": [
+              {
+                "min": 0,
+                "unit": "s"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 0, "y": 24}
+          },
+          {
+            "id": 11,
+            "title": "HTTP Status Codes",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "sum(rate(http_requests_total[5m])) by (status_code)",
+                "legendFormat": "{{status_code}}"
+              }
+            ],
+            "yAxes": [
+              {
+                "min": 0,
+                "unit": "reqps"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 12, "y": 24}
+          },
+          {
+            "id": 12,
+            "title": "Application Health",
+            "type": "table",
+            "targets": [
+              {
+                "expr": "up{job=\"backend-app\"}",
+                "legendFormat": "Backend"
+              },
+              {
+                "expr": "max(mongodb_connection_status) by (instance)",
+                "legendFormat": "Database"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 24, "x": 0, "y": 32}
+          }
+        ],
+        "time": {"from": "now-1h", "to": "now"},
+        "refresh": "30s"
+    } 

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admindashboard-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admindashboard
+  template:
+    metadata:
+      labels:
+        app: admindashboard
+    spec:
+      containers:
+      - name: admindashboard
+        image: admindashboard:latest
+        imagePullPolicy: Never
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: REACT_APP_API_URL
+          value: "/api"
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admindashboard-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: admindashboard 

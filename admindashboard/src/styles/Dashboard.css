@@ -1,0 +1,63 @@
+.chart-wrapper {
+  width: 50%;
+  margin: 0 auto; /* centers the chart-wrapper horizontally */
+  min-width: 300px; /* optional: prevent it from getting too narrow on small screens */
+}
+
+.chart-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+}
+
+.dashboard-cards {
+  display: flex;
+  gap: 20px;
+  margin: 0 40px 40px; /* add horizontal margin to push cards away from edges */
+  flex-wrap: wrap;
+  justify-content: center; /* center cards horizontally */
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  padding: 20px;
+  flex: 1 1 200px;
+  max-width: 250px;
+  aspect-ratio: 1 / 1; /* makes card square */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card h2 {
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #222;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #0070f3;
+  padding-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0070f3;
+}
+
+.chart-container h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #222;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #0070f3;
+  padding-bottom: 8px;
+  text-transform: uppercase;
+} 
